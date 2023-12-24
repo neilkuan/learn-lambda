@@ -153,7 +153,7 @@ aws lambda invoke \
 zip -j my_deployment_package_v2.zip v2/lambda_function.py
 
 
-unzip -l my_deployment_package_v2.zip 
+unzip -l my_deployment_package_v2.zip
 
 
 --- example output ---
@@ -230,4 +230,21 @@ aws lambda invoke \
 }
 "Hello Bob from lambda v2~~"%     
 --- end ---
+```
+
+
+### Clean up
+```bash
+export LAMBDA_FUNCTION_NAME="lambda-demo-basic"
+export AWS_REGION="ap-northeast-1"
+export LAMBDA_IAM_ROLE="lambda-demo-role"
+export AWS_ACCOUNT=$(aws sts get-caller-identity --query 'Account' --output text)
+
+aws lambda delete-function --function-name ${LAMBDA_FUNCTION_NAME} --region ${AWS_REGION}
+
+aws logs delete-log-group --log-group-name "/aws/lambda/${LAMBDA_FUNCTION_NAME}" --region ${AWS_REGION}
+
+aws iam list-attached-role-policies --role-name ${LAMBDA_IAM_ROLE} --query="AttachedPolicies[].PolicyArn" --output text | xargs -n1 aws iam detach-role-policy --role-name ${LAMBDA_IAM_ROLE} --policy-arn
+
+aws iam delete-role --role-name ${LAMBDA_IAM_ROLE}
 ```

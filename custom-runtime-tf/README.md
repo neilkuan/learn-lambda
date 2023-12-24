@@ -306,3 +306,9 @@ Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
 
 
 ### Lambda console test
+
+
+### Clean up
+```bash
+terraform destroy -auto-approve -var="docker_host=${DOCKER_HOST}"
+```
