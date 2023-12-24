@@ -71,10 +71,10 @@ module "lambda_function_from_container_image" {
 
   environment_variables = {
     Hello      = "World"
-    Serverless = "Terraform"
-    
+    Serverless = "Terraform" 
   }
 
+  timeout = 60
 }
 
 module "docker_image" {
@@ -83,7 +83,7 @@ module "docker_image" {
   create_ecr_repo = true
   ecr_repo        = "lambda-from-container-image"
 
-  use_image_tag = false # If false, sha of the image will be used
+  use_image_tag = true
 
   source_path = local.source_path
   platform    = "linux/amd64"

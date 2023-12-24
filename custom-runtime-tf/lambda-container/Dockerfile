@@ -1,6 +1,6 @@
 FROM public.ecr.aws/lambda/python:3.12
 
-RUN pip3 install certbot-dns-route53 awscli
+RUN dnf install jq -y && dnf clean all
 
 COPY bootstrap /var/runtime/bootstrap
 COPY *.sh /var/task/
