@@ -1,0 +1,10 @@
+*.zip
+/basic/**/*.zip
+response.json
+.terraform*
+*/**/.terraform
+terraform*
+**/**/*.zip
+
+.DS_Store
+
